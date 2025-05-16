@@ -6,7 +6,7 @@ function HomePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.body.style.backgroundImage = "url('/images/backgroundhomapage2.gif')";
+        document.body.style.backgroundImage = "url('/images/background/backgroundhomapage2.gif')";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
         document.body.style.backgroundRepeat = "no-repeat";
