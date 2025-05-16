@@ -9,3 +9,17 @@ body {
 .font-pixel {
   font-family: 'Press Start 2P', cursive;
 }
+
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.character-float {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+

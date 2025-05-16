@@ -107,12 +107,13 @@ function PickChar() {
       >
         ❮
       </button>
-      <img
+            <img
         id="character"
         src={characters[currentIndex]}
         alt="Character"
-        className={`w-24 sm:w-32 md:w-40 h-auto floating ${isFading ? 'fade-out' : 'fade-in'}`}
+        className={`w-24 sm:w-32 md:w-40 h-auto floating character-float ${isFading ? 'fade-out' : 'fade-in'}`}
       />
+
       <button
         onClick={nextCharacter}
         className="px-3 sm:px-6 py-2 sm:py-3 bg-blue-800 text-white text-sm sm:text-lg rounded-full shadow-lg hover:bg-blue-600 transition transform hover:scale-110"
@@ -143,7 +144,7 @@ function PickChar() {
     {/* Notification if any */}
     {showNotification && (
       <div className="mt-6 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg transition-opacity duration-300 flex items-center">
-        <img src="./assets/logo-and-character/alert.png" className="w-8 h-8 mr-2" alt="alert" />
+        <img src="public/images/alert.png" className="w-8 h-8 mr-2" alt="alert" />
         {notificationMessage}
       </div>
     )}

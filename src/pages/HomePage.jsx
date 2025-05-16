@@ -24,11 +24,12 @@ function HomePage() {
     return (
         <div className="w-screen h-screen flex items-center justify-center">
             <div className="text-center">
-                <h2 className="text-4xl text-black-900 font-bold mb-6">Archipelago Adventure!</h2>
+                <h2 className="text-4xl font-bold mb-6 text-glow text-glow-pulse">Archipelago Adventure!</h2>
+
                 <button
-                    onClick={() => navigate('/PickChar')}
-                    className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-md hover:bg-green-600 transition"
-                >
+                 onClick={() => navigate('/PickChar')}
+                    className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-md hover:bg-green-600 transition button-float"
+                    >
                     Start Game
                 </button>
             </div>
