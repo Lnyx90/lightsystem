@@ -11,9 +11,9 @@ function PickChar() {
   const navigate = useNavigate();
   
   const characters = [
-    "/images/wayang1.png",
-    "/images/wayang2.png",
-    "/images/wayang3.png",
+    "/images/wayang/wayang1.png",
+    "/images/wayang/wayang2.png",
+    "/images/wayang/wayang3.png",
   ];
   
   const bgMusicRef = useRef(null);
