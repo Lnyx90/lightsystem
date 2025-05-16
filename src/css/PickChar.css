@@ -10,34 +10,26 @@ body {
   font-family: 'Press Start 2P', cursive;
 }
 
-@keyframes floatUpDown {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  51% {
-    transform: translateY(-10px);
-  }
-}
 
 .character-float {
   animation: floatUpDown 3s ease-in-out infinite;
 }
 
-@keyframes glowPulse {
-  0%, 100% {
-    text-shadow:
-      0 0 5px blue,
-      0 0 10px blue,
-      0 0 20px blue,
-      0 0 30px blue;
+/* PickChar-specific pulse (adjust colors as needed) */
+@keyframes pulsePickChar {
+  0%, 100% { 
+    transform: scale(1);
+    text-shadow: 0 0 5px #4f46e5; /* Purple glow (Tailwind indigo-600) */
   }
-  50% {
-    text-shadow: none;
+  50% { 
+    transform: scale(1.05);
+    text-shadow: 0 0 15px #4f46e5; 
   }
 }
 
-.text-glow-pulse {
-  color: white; /* or keep your current color */
-  animation: glowPulse 2s infinite ease-in-out;
+.text-pulse-pickchar {
+  animation: pulsePickChar 1.5s infinite ease-in-out;
+  color: white; /* Text color */
 }
+
 

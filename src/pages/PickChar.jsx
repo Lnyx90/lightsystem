@@ -94,14 +94,12 @@ function PickChar() {
   <div className="flex flex-col items-center text-center px-4 w-full max-w-4xl">
     
     {/* Title at the top, centered */}
-   <h1 className="text-xl sm:text-3xl md:text-5xl text-glow-pulse text-white text-center leading-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+   <h1 className="text-xl sm:text-3xl md:text-5xl text-glow-pickchar text-white text-center leading-tight text-pulse-pickchar" style={{ fontFamily: "'Press Start 2P', cursive" }}>
   Choose Your <br />
   Character
 </h1>
 
 
-
-    
 
     {/* Character selection with left/right buttons */}
     <div className="flex items-center space-x-4 sm:space-x-6 mb-6">
@@ -115,7 +113,7 @@ function PickChar() {
         id="character"
         src={characters[currentIndex]}
         alt="Character"
-        className={`w-23 sm:w-32 md:w-40 h-auto floating character-float ${isFading ? 'fade-out' : 'fade-in'}`}
+        className={`w-23 sm:w-32 md:w-40 h-auto floating character-float `}
       />
 
       <button
