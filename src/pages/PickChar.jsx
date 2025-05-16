@@ -89,12 +89,16 @@ function PickChar() {
   return (
     <div 
   className="w-screen h-screen bg-cover bg-center flex items-center justify-center"
-  style={{ backgroundImage: "url('/images/homepage.jpg')" }}
+  style={{ backgroundImage: "url('public/images/cloudbackground.gif')" }}
 >
   <div className="flex flex-col items-center text-center px-4 w-full max-w-4xl">
     
     {/* Title at the top, centered */}
-    <h1 className="text-4xl font-pixel text-white mt-[-8px]">Choose Your Character</h1>
+   <h1 className="text-xl sm:text-3xl md:text-5xl text-glow-pulse text-white text-center leading-tight" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+  Choose Your <br />
+  Character
+</h1>
+
 
 
     
