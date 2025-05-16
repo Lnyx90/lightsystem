@@ -24,7 +24,7 @@ function HomePage() {
     return (
         <div className="w-screen h-screen flex items-center justify-center">
             <div className="text-center">
-                <h2 className="text-4xl font-bold mb-6 text-glow text-glow-pulse">Archipelago Adventure!</h2>
+                <h2 className="text-4xl font-bold mb-6 text-glow text-glow-home text-glow-pulse-home">Archipelago Adventure!</h2>
 
                 <button
                  onClick={() => navigate('/PickChar')}
