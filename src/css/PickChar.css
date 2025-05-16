@@ -1,9 +1,9 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "tailwindcss";
 
 body {
-    @apply flex;
-    font-family: 'Press Start 2P', cursive;
+  display: flex;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .font-pixel {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "../css/PickChar.css";
+import { useNavigate } from 'react-router-dom';
 
 function PickChar() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -7,6 +8,7 @@ function PickChar() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [isFading, setIsFading] = useState(false);
+  const navigate = useNavigate();
   
   const characters = [
     "/images/wayang1.png",
@@ -73,23 +75,23 @@ function PickChar() {
     setPlayerName(e.target.value);
   };
 
-  const selectCharacter = () => {
-    playClickSound();
-    if (!playerName.trim()) {
-      setNotificationMessage("Please enter your name!");
-      setShowNotification(true);
-      return;
-    }
-    
-    localStorage.setItem("selectedCharacterImage", characters[currentIndex]);
-    localStorage.setItem("playerName", playerName);
-    window.location.href = "game.jsx";
-  };
+  const handleSelectAndNavigate = () => {
+  if (!playerName.trim()) {
+    setNotificationMessage("Please enter your name!");
+    setShowNotification(true);
+    return;
+  }
+  playClickSound();
+  localStorage.setItem("PlayerImage", characters[currentIndex]);
+  localStorage.setItem("playerName", playerName);
+  navigate("/game");
+};
+
 
   return (
     <div 
   className="w-screen h-screen bg-cover bg-center flex items-center justify-center"
-  style={{ backgroundImage: "url('public/images/cloudbackground.gif')" }}
+  style={{ backgroundImage: "url('/images/cloudbackground.gif')" }}
 >
   <div className="flex flex-col items-center text-center px-4 w-full max-w-4xl">
     
@@ -137,7 +139,7 @@ function PickChar() {
 
     {/* Select button */}
     <button
-      onClick={selectCharacter}
+      onClick={handleSelectAndNavigate}
       className="px-5 sm:px-8 py-2 sm:py-4 bg-blue-800 text-white text-sm sm:text-xl rounded-full shadow-lg hover:bg-blue-500 transition transform hover:scale-110"
     >
       Select Character
@@ -146,7 +148,7 @@ function PickChar() {
     {/* Notification if any */}
     {showNotification && (
       <div className="mt-6 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg transition-opacity duration-300 flex items-center">
-        <img src="public/images/alert.png" className="w-8 h-8 mr-2" alt="alert" />
+        <img src="/images/alert.png" className="w-8 h-8 mr-2" alt="alert" />
         {notificationMessage}
       </div>
     )}
