@@ -8,3 +8,38 @@ body {
 .font-pixel {
   font-family: 'Press Start 2P', cursive;
 }
+
+.text-glow {
+  text-shadow: 0 0 5px #34d399, 0 0 10px #34d399, 0 0 20px #34d399, 0 0 30px #10b981;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #34d399,
+      0 0 10px #34d399,
+      0 0 20px #34d399,
+      0 0 30px #10b981;
+  }
+  50% {
+    text-shadow: none;
+  }
+}
+
+.text-glow-pulse {
+  color: black; 
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.button-float {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
