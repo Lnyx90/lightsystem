@@ -4,6 +4,7 @@ import './App.css'
 import HomePage from './pages/HomePage'
 import PickChar from './pages/PickChar'
 import DiePage from './pages/DiePage'
+import Game from './pages/Game'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/pickchar" element={<PickChar />} />
         <Route path="/diepage" element={<DiePage />} />
+        <Route path="/game" element={<Game />} />
       </Routes>
     </Router>
 
