@@ -111,7 +111,7 @@ function PickChar() {
         id="character"
         src={characters[currentIndex]}
         alt="Character"
-        className={`w-24 sm:w-32 md:w-40 h-auto floating character-float ${isFading ? 'fade-out' : 'fade-in'}`}
+        className={`w-23 sm:w-32 md:w-40 h-auto floating character-float ${isFading ? 'fade-out' : 'fade-in'}`}
       />
 
       <button

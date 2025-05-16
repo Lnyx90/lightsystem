@@ -28,7 +28,7 @@ function HomePage() {
 
                 <button
                  onClick={() => navigate('/PickChar')}
-                    className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-md hover:bg-green-600 transition button-float"
+                    className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-md hover:bg-green-601 transition button-float"
                     >
                     Start Game
                 </button>
