@@ -1,14 +1,12 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/HomePage.css";
 
-function HomePage()
-{
+function HomePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.body.style.backgroundImage = "url('/images/homepage.jpg')";
+        document.body.style.backgroundImage = "url('public/images/backgroundhomapage2.gif')";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
         document.body.style.backgroundRepeat = "no-repeat";
@@ -24,16 +22,18 @@ function HomePage()
     }, []);
 
     return (
-        <>
-            <div className="">
-                <h2 className="text-2xl text-blue-900 font-bold leading-tight">Archipelago Adventure!</h2>
+        <div className="w-screen h-screen flex items-center justify-center">
+            <div className="text-center">
+                <h2 className="text-4xl text-black-900 font-bold mb-6">Archipelago Adventure!</h2>
+                <button
+                    onClick={() => navigate('/PickChar')}
+                    className="px-6 py-3 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-md hover:bg-green-600 transition"
+                >
+                    Start Game
+                </button>
             </div>
-            <div className="">
-                <button onClick={() => navigate('/')} className="px-4 py-2.5 text-base font-semibold text-white bg-green-500 rounded-lg shadow-md">Start Game</button>
-            </div>
-        </>
-        
-    )
+        </div>
+    );
 }
 
 export default HomePage;

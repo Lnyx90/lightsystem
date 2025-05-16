@@ -3,6 +3,7 @@
 
 body {
     @apply flex;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .font-pixel {
