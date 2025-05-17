@@ -117,11 +117,11 @@ function Game() {
   const move = (direction) => {
     setPosition((prev) => {
       let { x, y } = prev;
+
       if (direction === 'up') y = Math.max(0, y - step);
       if (direction === 'down') y = Math.min(mapHeight, y + step);
       if (direction === 'left') x = Math.max(0, x - step);
       if (direction === 'right') x = Math.min(mapWidth, x + step);
-      return { x, y };
     });
   };
 
