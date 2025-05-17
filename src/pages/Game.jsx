@@ -59,6 +59,7 @@ function Game() {
       else if (direction === 'down') y += step;
       else if (direction === 'left') x -= step;
       else if (direction === 'right') x += step;
+    
       return { x, y };
     });
   };
