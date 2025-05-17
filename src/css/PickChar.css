@@ -19,11 +19,9 @@ body {
 @keyframes pulsePickChar {
   0%, 100% { 
     transform: scale(1);
-    text-shadow: 0 0 5px #4f46e5; /* Purple glow (Tailwind indigo-600) */
   }
   50% { 
     transform: scale(1.05);
-    text-shadow: 0 0 15px #4f46e5; 
   }
 }
 

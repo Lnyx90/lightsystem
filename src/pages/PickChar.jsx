@@ -91,7 +91,7 @@ function PickChar() {
   return (
     <div 
   className="w-screen h-screen bg-cover bg-center flex items-center justify-center"
-  style={{ backgroundImage: "url('/images/cloudbackground.gif')" }}
+  style={{ backgroundImage: "url('/images/ backgroundhomepage.gif')" }}
 >
   <div className="flex flex-col items-center text-center px-4 w-full max-w-4xl">
     
