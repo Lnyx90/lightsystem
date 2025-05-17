@@ -95,7 +95,7 @@ function Game() {
           { icon: 'hygine', value: hygiene, color: 'bg-blue-400' },
           { icon: 'happy', value: happiness, color: 'bg-pink-400' }].map(({ icon, value, color }, index) => (
           <React.Fragment key={index}>
-            <img src={`/images/symbol/${icon}.png`} alt={icon} className="w-6 h-6" />
+            <img src={`/images/symbol/${icon}.png`} alt={icon} className="ml-5 w-6 h-6" />
             <div className="relative w-48 h-10 flex items-center">
               <img src="/images/symbol/taskbar.png" className="absolute w-full h-full" alt="Taskbar" />
               <div className="absolute flex items-center gap-2 px-3 w-full">
@@ -154,7 +154,7 @@ function Game() {
         <div id="location" className="bg-white p-4 rounded-lg shadow-lg w-80 h-135">
           <div className="text-center text-m font-semibold mb-4">Welcome to Archipelago</div>
           <div className="flex items-center justify-center mb-4">
-            <img src="/assets/logo-and-character/time.png" alt="day" className="w-8 h-8" />
+            <img src="/images/symbol/time.png" alt="day" className="w-8 h-8" />
           </div>
 
           {actions.map((action, i) => (

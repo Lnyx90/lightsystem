@@ -148,7 +148,7 @@ function PickChar() {
     {/* Notification if any */}
     {showNotification && (
       <div className="mt-6 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg transition-opacity duration-300 flex items-center">
-        <img src="/images/alert.png" className="w-8 h-8 mr-2" alt="alert" />
+        <img src="/images/symbol/alert.png" className="w-8 h-8 mr-2" alt="alert" />
         {notificationMessage}
       </div>
     )}
