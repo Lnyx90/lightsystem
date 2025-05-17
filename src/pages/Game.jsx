@@ -5,7 +5,7 @@ function Game() {
   const [player, setPlayer] = useState({ name: '', image: '' });
   const [currentDate, setCurrentDate] = useState('');
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
-  const [money, setMoney] = useState(1000000);
+  const [money] = useState(100000);
   const [health] = useState(50);
   const [energy] = useState(50);
   const [hygiene] = useState(50);
@@ -13,19 +13,18 @@ function Game() {
   const [position, setPosition] = useState({ x: 1000, y: 750 });
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // State to store current map background image URL
-  const [mapBg, setMapBg] = useState("/images/background/map.png");
-
-  const [locationActions, setLocationActions] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState(null);
+  const [actions, setActions] = useState([]);
+  const [currentMap, setCurrentMap] = useState('default');
+  const [locationText, setLocationText] = useState("You're Lost!");
 
   const step = 15;
-  const mapWidth = 2000;
-  const mapHeight = 1500;
-  const viewWidth = 850;
-  const viewHeight = 450;
 
-  const closePopUp = () => setShowWelcomePopup(false);
+  useEffect(() => {
+    document.body.style.backgroundImage = "url('/images/background/newbg.gif')";
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+  }, []);
 
   useEffect(() => {
     const storedName = localStorage.getItem('playerName');
@@ -52,10 +51,10 @@ function Game() {
       }
       move(
         e.key === 'ArrowUp' ? 'up' :
-          e.key === 'ArrowDown' ? 'down' :
-            e.key === 'ArrowLeft' ? 'left' :
-              e.key === 'ArrowRight' ? 'right' :
-                null
+        e.key === 'ArrowDown' ? 'down' :
+        e.key === 'ArrowLeft' ? 'left' :
+        e.key === 'ArrowRight' ? 'right' :
+        null
       );
     };
 
@@ -63,67 +62,71 @@ function Game() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // UseEffect to update map background and available actions based on position
-  useEffect(() => {
-    let bgImage = "/images/background/map.png"; // default map background
-    let currentLoc = null;
-    let actions = [];
-
-    // Kuta Beach area
-    if (position.x > 480 && position.x < 520 && position.y > 280 && position.y < 320) {
-      bgImage = "/images/background/kuta.jpg";
-      currentLoc = "Kuta Beach";
-
-      // Actions at specific points inside Kuta
-      if (position.x > 485 && position.x < 495 && position.y > 285 && position.y < 295) {
-        actions = ["Pick-up Trash"];
-      } else if (position.x > 505 && position.x < 515 && position.y > 305 && position.y < 315) {
-        actions = ["Buy Snack"];
-      }
-    }
-    // Borobudur Temple area
-    else if (position.x > 670 && position.x < 710 && position.y > 200 && position.y < 240) {
-      bgImage = "/images/background/borobudur.jpg";
-      currentLoc = "Borobudur Temple";
-
-      if (position.x > 695 && position.x < 705 && position.y > 215 && position.y < 225) {
-        actions = ["Take a Picture"];
-      }
-    }
-    // Bromo Mountain area
-    else if (position.x > 750 && position.x < 790 && position.y > 450 && position.y < 490) {
-      bgImage = "/images/background/bromo.jpg";
-      currentLoc = "Bromo Mountain";
-
-      if (position.x > 755 && position.x < 765 && position.y > 455 && position.y < 465) {
-        actions = ["Make a Cinematic Video"];
-      }
-    }
-    // Toba Lake area
-    else if (position.x > 380 && position.x < 420 && position.y > 30 && position.y < 70) {
-      bgImage = "/images/background/toba.jpg";
-      currentLoc = "Toba Lake";
-
-      if (position.x > 385 && position.x < 395 && position.y > 35 && position.y < 45) {
-        actions = ["Take a Shower"];
-      }
-    }
-
-    setMapBg(bgImage);
-    setCurrentLocation(currentLoc);
-    setLocationActions(actions);
-  }, [position]);
-
   const move = (direction) => {
     setPosition((prev) => {
       let { x, y } = prev;
 
+      let maxWidth = 2000;   
+      let maxHeight = 1500; 
+
       if (direction === 'up') y = Math.max(0, y - step);
-      if (direction === 'down') y = Math.min(mapHeight, y + step);
+      if (direction === 'down') y = Math.min(maxHeight, y + step);
       if (direction === 'left') x = Math.max(0, x - step);
-      if (direction === 'right') x = Math.min(mapWidth, x + step);
+      if (direction === 'right') x = Math.min(maxWidth, x + step);
+
+      return { x, y };
     });
   };
+
+
+  useEffect(() => {
+    if (currentMap === 'default') {
+    
+      if (position.x > 1630 && position.x < 1885 && position.y > 1095 && position.y < 1125) {
+        setCurrentMap('lake');
+        setPosition({ x: 100, y: 100 }); 
+        setActions([]);
+        setLocationText('Welcome to Lake Toba');
+      }else if (position.x > 510 && position.x < 610 && position.y > 900 && position.y < 1170) {
+        setCurrentMap('beach');
+        setPosition({ x: 100, y: 100 }); 
+        setActions([]);
+        setLocationText('Welcome to Kuta Beach');
+      }
+    }
+  }, [position, currentMap]);
+
+  // Update actions based on current map and player position
+  useEffect(() => {
+    if (currentMap === 'default') {
+      setLocationText("You're Lost!");
+      setActions([]);
+    } else if (currentMap === 'lake') {
+      // Actions for lake map specific spots
+      if (position.x > 50 && position.x < 110 && position.y > 90 && position.y < 130) {
+        setActions(["Sand Play", "Buy Drink", "Buy Snack", "Pick-up Trash"]);
+      } else {
+        setActions([]);
+      }
+    }else if (currentMap === 'beach') {
+      // Actions for lake map specific spots
+      if (position.x > 50 && position.x < 110 && position.y > 90 && position.y < 130) {
+        setActions(["Sand Play", "Buy Drink", "Buy Snack", "Pick-up Trash"]);
+      } else {
+        setActions([]);
+      }
+    }
+  }, [currentMap, position]);
+
+  
+  const mapImages = {
+    default: "/images/background/map.png",
+    lake: "/images/background/lake.jpg",
+    beach:"/images/background/beach.gif"
+   
+  };
+
+ 
 
   return (
     <div className="fixed flex flex-col items-center justify-center min-h-screen bg-cover bg-center scale-factor">
@@ -136,7 +139,7 @@ function Game() {
             <p className="text-sm mb-2">You have chosen:</p>
             <img src={player.image} alt="Character" className="w-24 h-auto max-h-40 mx-auto mb-4 object-contain" />
             <p className="text-sm mb-4">Time for an Epic Journey!</p>
-            <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700" onClick={closePopUp}>Play</button>
+            <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700" onClick={() => setShowWelcomePopup(false)}>Play</button>
           </div>
         </div>
       )}
@@ -155,35 +158,48 @@ function Game() {
           { icon: 'energi', value: energy, color: 'bg-yellow-300' },
           { icon: 'hygine', value: hygiene, color: 'bg-blue-400' },
           { icon: 'happy', value: happiness, color: 'bg-pink-400' }].map(({ icon, value, color }, index) => (
-            <React.Fragment key={index}>
-              <img src={`/images/symbol/${icon}.png`} alt={icon} className="ml-5 w-6 h-6" />
-              <div className="relative w-48 h-10 flex items-center">
-                <img src="/images/symbol/taskbar.png" className="absolute w-full h-full" alt="Taskbar" />
-                <div className="absolute flex items-center gap-2 px-3 w-full">
-                  <div className="w-40 h-3 bg-gray-300 rounded-full overflow-hidden">
-                    <div className={`h-full ${color} transition-all`} style={{ width: `${value}%` }}></div>
-                  </div>
+          <React.Fragment key={index}>
+            <img src={`/images/symbol/${icon}.png`} alt={icon} className="ml-5 w-6 h-6" />
+            <div className="relative w-48 h-10 flex items-center">
+              <img src="/images/symbol/taskbar.png" className="absolute w-full h-full" alt="Taskbar" />
+              <div className="absolute flex items-center gap-2 px-3 w-full">
+                <div className="w-40 h-3 bg-gray-300 rounded-full overflow-hidden">
+                  <div className={`h-full ${color} transition-all`} style={{ width: `${value}%` }}></div>
                 </div>
               </div>
-              <span className="text-sm">{value}%</span>
-            </React.Fragment>
-          ))}
+            </div>
+            <span className="text-sm">{value}%</span>
+          </React.Fragment>
+        ))}
       </div>
 
       <div className="flex flex-row flex-wrap justify-center gap-6 mt-34">
-        <div className="relative w-[850px] h-[680vw] rounded-lg overflow-hidden shadow-lg ml-30">
-          {/* Map container with dynamic background image */}
+        <div className="relative w-[850px] h-[680px] rounded-lg overflow-hidden shadow-lg ml-30">
+          <div className="fixed left-0.8 transform py-0.5 px-2 flex items-center shadow-lg z-10">
+            <img
+              src="/images/symbol/money.png"
+              className="w-6 h-6"
+              alt="Money"
+            />
+            <span className="text-white mr-2">{money.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</span>
+          </div>
           <div
-            className="absolute transition-transform duration-300"
-            style={{
-              width: `${mapWidth}px`,
-              height: `${mapHeight}px`,
-              backgroundImage: `url('${mapBg}')`,
-              backgroundSize: 'cover',
-              transform: `translate(${-position.x + viewWidth / 2}px, ${-position.y + viewHeight / 2}px)`,
-            }}
-          >
-            {/* Player icon */}
+  className="absolute transition-transform duration-300"
+  style={{
+    width: '2000px',
+    height: '1500px',
+    backgroundImage:
+    currentMap === 'default'
+      ? "url('/images/background/map.png')"
+      : currentMap === 'lake'
+        ? "url('/images/background/lake.jpg')"
+        : currentMap === 'beach'
+          ? "url('/images/background/beach.gif')"
+          : 'none',  
+    backgroundSize: 'cover',
+    transform: `translate(${-position.x + 425}px, ${-position.y + 225}px)`,
+  }}
+>
             <div
               id="player"
               className="absolute transition-all duration-300"
@@ -217,33 +233,21 @@ function Game() {
           </div>
         </div>
 
-        {/* Show action buttons when available */}
-        {currentLocation && locationActions.length > 0 && (
-          <div className="flex flex-col gap-4 p-4 rounded-lg bg-white bg-opacity-90 shadow-lg">
-            <h3 className="font-bold text-xl mb-2">{currentLocation} Actions</h3>
-            {locationActions.map((action, i) => (
-              <button
-                key={i}
-                className="px-4 py-2 bg-green-500 hover:bg-green-700 text-white rounded"
-                onClick={() => alert(`You chose to: ${action}`)}
-              >
-                {action}
-              </button>
-            ))}
-          </div>
-        )}
-
-<div id="location" className="bg-white p-4 rounded-lg shadow-lg w-80 h-135">
+        <div id="location" className="bg-white p-4 rounded-lg shadow-lg w-80 h-135">
           <div className="text-center text-m font-semibold mb-4">
-            {currentLocation ? `You're at ${currentLocation}` : "You're Lost!"}
+          <div className="fixed bottom-4 left-4 bg-white p-2 rounded shadow">
+        X: {position.x}, Y: {position.y}
+        </div>
+
+            {currentMap === 'default' ? "You're Lost!" : locationText}
           </div>
 
           <div className="flex items-center justify-center mb-4">
             <img src="/images/symbol/time.png" alt="day" className="w-8 h-8" />
           </div>
 
-          {locationActions.length > 0 ? (
-            locationActions.map((action, i) => (
+          {actions.length > 0 ? (
+            actions.map((action, i) => (
               <button
                 key={i}
                 className="w-full bg-blue-500 text-xs text-white p-2 mt-2 rounded-lg hover:bg-blue-600"
@@ -251,27 +255,26 @@ function Game() {
               >
                 {action}
               </button>
-            ))
-          ) : (
-            <p className="text-center text-gray-500 text-sm">No actions available here.</p>
+            ))) : (
+              <div className="text-center text-xs text-gray-600 mt-2">
+                No actions available here.
+              </div>
           )}
 
-          <div className="flex flex-col items-center justify-center mt-4">
-            <button onClick={() => move('up')}>
-              <img src="/images/symbol/top.png" alt="up" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200" />
+          
+          {currentMap !== 'default' && (
+            <button
+              onClick={() => {
+                setCurrentMap('default');
+                setPosition({ x: 1000, y: 750 });
+                setActions([]);
+                setLocationText("You're Lost!");
+              }}
+              className="w-full mt-4 bg-red-500 hover:bg-red-700 text-white rounded-lg py-2"
+            >
+              Back to Main Map
             </button>
-            <div className="flex space-x-4 mt-2">
-              <button onClick={() => move('left')}>
-                <img src="/images/symbol/left.png" alt="left" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200" />
-              </button>
-              <button onClick={() => move('right')}>
-                <img src="/images/symbol/right.png" alt="right" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200 ml-5" />
-              </button>
-            </div>
-            <button onClick={() => move('down')} className="mt-2">
-              <img src="/images/symbol/down.png" alt="down" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200" />
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>
