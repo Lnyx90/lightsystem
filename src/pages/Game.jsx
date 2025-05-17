@@ -20,6 +20,7 @@ function Game() {
   useEffect(() => {
     const storedName = localStorage.getItem('playerName');
     const storedImage = localStorage.getItem('PlayerImage');
+    document.body.style.backgroundImage = "url('/images/newbg.gif')";
 
     setPlayer({
       name: storedName || 'Player',
