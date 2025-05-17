@@ -34,7 +34,7 @@ const GameOver = () => {
     <div 
       className="flex items-center justify-center min-h-screen text-green-800 text-center px-4 sm:px-6 transition-opacity"
       style={{
-        backgroundImage: "url('/images/rain.gif')",
+        backgroundImage: "url('/images/background/rain.gif')",
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}

@@ -20,7 +20,7 @@ function Game() {
   useEffect(() => {
     const storedName = localStorage.getItem('playerName');
     const storedImage = localStorage.getItem('PlayerImage');
-    document.body.style.backgroundImage = "url('/images/newbg.gif')";
+    document.body.style.backgroundImage = "url('/images/background/newbg.gif')";
 
     setPlayer({
       name: storedName || 'Player',
@@ -116,17 +116,8 @@ function Game() {
             <span className="text-white font-bold text-sm">{money}</span>
           </div>
 
-          {['home', 'bromo', 'kuta', 'borobudur', 'lake_toba'].map((loc, i) => (
-            <img
-              key={loc}
-              src={`/images/symbol/${loc}.png`}
-              className="absolute w-12"
-              style={{ left: `${[60, 700, 270, 680, 400][i]}px`, top: `${[70, 480, 400, 220, 70][i]}px`, zIndex: 5 }}
-              alt={loc}
-            />
-          ))}
 
-          <img src="/images/background/map.jpg" className="w-full h-[550px] rounded-lg shadow-lg" alt="Map" />
+          <img src="/images/background/map.png" className="w-full h-[550px] rounded-lg shadow-lg" alt="Map" />
 
           <div
             id="player"
