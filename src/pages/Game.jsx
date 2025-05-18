@@ -223,11 +223,10 @@ function Game() {
 			</div>
 
 			
-
 			<div className='fixed flex flex-wrap flex-row justify-center w-full mt-40 lg:mt-50'>
 				<div className=' w-[200px] h-[250px] md:w-[400px] md:h-[450px] lg:w-[700px] lg:h-[450px] rounded-lg overflow-hidden shadow-lg'>
 					<div
-						className=' transition-transform duration-300relative'
+						className=' transition-transform scale-y-132 scale-x-123 duration-300relative'
 						style={{
 							width: `${mapWidth}px`,
 							height: `${mapHeight}px`,
@@ -241,7 +240,7 @@ function Game() {
 									: 'none',
 							backgroundSize: 'cover',
 							backgroundRepeat: 'no-repeat',
-							transform: `translate(${offsetX}px, ${offsetY}px)`,
+							transform: `translate(${offsetX}px, ${offsetY}px) scale(${isMobile ? 0.6 : 1})`,
 						}}
 					>
 						<div
