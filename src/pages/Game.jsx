@@ -27,6 +27,7 @@ function Game() {
 
 	const isMobile = window.innerWidth < 768;
 
+	//
 	// Calculate how much to move map (camera)
 	const offsetX = clamp(
 		-position.x + viewportWidth / 2,
