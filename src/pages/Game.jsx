@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import stats from '../js/Stats';
 import '../css/Game.css';
 
 function Game() {
+
 
 	const [player, setPlayer] = useState({ name: '', image: '' });
 	const [currentDate, setCurrentDate] = useState('');
@@ -327,9 +327,40 @@ function Game() {
 					)}
 				</div>
 			</div>
+       <div className="flex flex-col items-center justify-center  mt-4">
+            <button onClick={() => move('up')}>
+              <img src="/images/symbol/top.png" alt="up" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200" />
+            </button>
+            <div className="flex space-x-4 mt-2">
+              <button onClick={() => move('left')}>
+                <img src="/images/symbol/left.png" alt="left" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200" />
+              </button>
+              <button onClick={() => move('right')}>
+                <img src="/images/symbol/right.png" alt="right" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200 ml-5" />
+              </button>
+            </div>
+            <button onClick={() => move('down')} className="mt-2">
+              <img src="/images/symbol/down.png" alt="down" className="bg-blue-200 w-12 h-12 rounded-full hover:bg-pink-200" />
+            </button>
+          </div>
+          <div id="location" className="bg-white p-4 rounded-lg shadow-lg w-80 h-135">
+          <div className="text-center text-m font-semibold mb-4">Welcome to Archipelago</div>
+          <div className="flex items-center justify-center mb-4">
+            <img src="/images/symbol/time.png" alt="day" className="w-8 h-8" />
+          </div>
+
+          {actions.map((action, i) => (
+            <button
+              key={i}
+              className={`w-full bg-blue-500 text-xs text-white p-2 mt-4 rounded-lg mb-2 hover:${i === 3 ? 'bg-yellow-600' : 'bg-blue-600'}`}
+              onClick={() => console.log(`Action ${i + 1} clicked`)}
+            >
+              {action || `Action ${i + 1}`}
+            </button>
+          ))}
+        </div>
 		</div>
 	);
-
 }
 
 export default Game;
