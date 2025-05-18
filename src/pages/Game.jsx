@@ -3,6 +3,7 @@ import stats from '../js/Stats';
 import '../css/Game.css';
 
 function Game() {
+
 	const [player, setPlayer] = useState({ name: '', image: '' });
 	const [currentDate, setCurrentDate] = useState('');
 	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
@@ -327,6 +328,7 @@ function Game() {
 			</div>
 		</div>
 	);
+
 }
 
 export default Game;
