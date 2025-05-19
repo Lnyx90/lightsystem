@@ -3,20 +3,30 @@ import stats from '../js/Stats';
 import '../css/Game.css';
 
 function Game() {
-
+	//Player
 	const [player, setPlayer] = useState({ name: '', image: '' });
+
+	//Date
 	const [currentDate, setCurrentDate] = useState('');
+
+	//Welcome Popup
 	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
+	const closePopUp = () => setShowWelcomePopup(false);
+
+	//Money
 	const [money, setMoney] = useState(1000000);
+
+	//Position, Step & Location
 	const step = 15;
 	const [position, setPosition] = useState({ x: 1000, y: 750 });
-	const [imageLoaded, setImageLoaded] = useState(false);
-
-	const [actions, setActions] = useState([]);
-	const [currentMap, setCurrentMap] = useState('default');
 	const [locationText, setLocationText] = useState("You're Lost!");
 
-	const closePopUp = () => setShowWelcomePopup(false);
+	//Actions
+	const [actions, setActions] = useState([]);
+
+	//Map
+	const [imageLoaded, setImageLoaded] = useState(false);
+	const [currentMap, setCurrentMap] = useState('default');
 
 	const mapWidth = 2000;
 	const mapHeight = 1500;
@@ -24,10 +34,6 @@ function Game() {
 	const viewportHeight = 500;
 
 	const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
-	const isMobile = window.innerWidth < 768;
-
-	// Calculate how much to move map (camera)
 	const offsetX = clamp(
 		-position.x + viewportWidth / 2,
 		-mapWidth + viewportWidth,
@@ -39,6 +45,16 @@ function Game() {
 		0
 	);
 
+	const mapImages = {
+		default: '/images/background/map.png',
+		lake: '/images/background/lake.jpg',
+		beach: '/images/background/beach.gif',
+	};
+
+	//Mobile S
+	const isMobile = window.innerWidth < 768;
+
+	//UseEffects
 	useEffect(() => {
 		const storedName = localStorage.getItem('playerName');
 		const storedImage = localStorage.getItem('PlayerImage');
@@ -56,9 +72,7 @@ function Game() {
 			year: 'numeric',
 		});
 		setCurrentDate(formattedDate);
-	}, []);
 
-	useEffect(() => {
 		const handleKeyDown = (e) => {
 			setPosition((prev) => {
 				let { x, y } = prev;
@@ -73,17 +87,6 @@ function Game() {
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	}, []);
-
-	const move = (direction) => {
-		setPosition((prev) => {
-			let { x, y } = prev;
-			if (direction === 'up') y -= step;
-			else if (direction === 'down') y += step;
-			else if (direction === 'left') x -= step;
-			else if (direction === 'right') x += step;
-			return { x, y };
-		});
-	};
 
 	useEffect(() => {
 		if (currentMap === 'default') {
@@ -111,42 +114,16 @@ function Game() {
 		}
 	}, [position, currentMap]);
 
-	// Update actions based on current map and player position
-	useEffect(() => {
-		if (currentMap === 'default') {
-			setLocationText("You're Lost!");
-			setActions([]);
-		} else if (currentMap === 'lake') {
-			// Actions for lake map specific spots
-			if (
-				position.x > 50 &&
-				position.x < 110 &&
-				position.y > 90 &&
-				position.y < 130
-			) {
-				setActions(['Sand Play', 'Buy Drink', 'Buy Snack', 'Pick-up Trash']);
-			} else {
-				setActions([]);
-			}
-		} else if (currentMap === 'beach') {
-			// Actions for lake map specific spots
-			if (
-				position.x > 50 &&
-				position.x < 110 &&
-				position.y > 90 &&
-				position.y < 130
-			) {
-				setActions(['Sand Play', 'Buy Drink', 'Buy Snack', 'Pick-up Trash']);
-			} else {
-				setActions([]);
-			}
-		}
-	}, [currentMap, position]);
-
-	const mapImages = {
-		default: '/images/background/map.png',
-		lake: '/images/background/lake.jpg',
-		beach: '/images/background/beach.gif',
+	//Movement
+	const move = (direction) => {
+		setPosition((prev) => {
+			let { x, y } = prev;
+			if (direction === 'up') y -= step;
+			else if (direction === 'down') y += step;
+			else if (direction === 'left') x -= step;
+			else if (direction === 'right') x += step;
+			return { x, y };
+		});
 	};
 
 	return (
@@ -223,7 +200,6 @@ function Game() {
 				</div>
 			</div>
 
-			
 			<div className='fixed flex flex-wrap flex-row justify-center w-full mt-40 lg:mt-50'>
 				<div className=' w-[200px] h-[250px] md:w-[400px] md:h-[450px] lg:w-[700px] lg:h-[450px] rounded-lg overflow-hidden shadow-lg'>
 					<div
@@ -241,7 +217,9 @@ function Game() {
 									: 'none',
 							backgroundSize: 'cover',
 							backgroundRepeat: 'no-repeat',
-							transform: `translate(${offsetX}px, ${offsetY}px) scale(${isMobile ? 0.6 : 1})`,
+							transform: `translate(${offsetX}px, ${offsetY}px) scale(${
+								isMobile ? 0.6 : 1
+							})`,
 						}}
 					>
 						<div
@@ -328,7 +306,6 @@ function Game() {
 			</div>
 		</div>
 	);
-
 }
 
 export default Game;
