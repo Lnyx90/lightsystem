@@ -258,50 +258,56 @@ function Game() {
 				</div>
 
 				<div
-					id='location'
-					className='bg-white p-4 rounded-lg shadow-lg w-80 h-112'
+				id='location'
+				className='bg-white p-4 rounded-lg shadow-lg 
+							w-full sm:w-72 md:w-80 lg:w-80 
+							h-auto sm:h-[26rem] md:h-[28rem] lg:h-[28rem]
+							mt-4 sm:mt-4 md:mt-0 lg:mt-0
+							ml-3 sm:ml-0 md:ml-3 lg:ml-3 mr-3'
 				>
-					<div className='text-center text-m font-semibold mb-4'>
-						<div className='fixed bottom-4 left-4 bg-white p-2 rounded shadow'>
-							X: {position.x}, Y: {position.y}
-						</div>
-
-						{currentMap === 'default' ? "You're Lost!" : locationText}
+				<div className='text-center text-sm sm:text-base font-semibold mb-4'>
+					<div className='fixed bottom-4 left-4 bg-white p-2 rounded shadow text-[10px] sm:text-xs md:text-sm'>
+					X: {position.x}, Y: {position.y}
 					</div>
 
-					<div className='flex items-center justify-center mb-4'>
-						<img src='/images/symbol/time.png' alt='day' className='w-8 h-8' />
+					{currentMap === 'default' ? "You're Lost!" : locationText}
+				</div>
+
+				<div className='flex items-center justify-center mb-4'>
+					<img src='/images/symbol/time.png' alt='day' className='w-6 h-6 sm:w-8 sm:h-8' />
+				</div>
+
+				{actions.length > 0 ? (
+					actions.map((action, i) => (
+					<button
+						key={i}
+						className='w-full bg-blue-500 
+								text-[10px] sm:text-xs md:text-sm 
+								text-white p-2 mt-2 rounded-lg hover:bg-blue-600'
+						onClick={() => console.log(`Action: ${action}`)}
+					>
+						{action}
+					</button>
+					))
+				) : (
+					<div className='text-center text-xs text-gray-600 mt-2'>
+					No actions available here.
 					</div>
+				)}
 
-					{actions.length > 0 ? (
-						actions.map((action, i) => (
-							<button
-								key={i}
-								className='w-full bg-blue-500 text-xs text-white p-2 mt-2 rounded-lg hover:bg-blue-600'
-								onClick={() => console.log(`Action: ${action}`)}
-							>
-								{action}
-							</button>
-						))
-					) : (
-						<div className='text-center text-xs text-gray-600 mt-2'>
-							No actions available here.
-						</div>
-					)}
-
-					{currentMap !== 'default' && (
-						<button
-							onClick={() => {
-								setCurrentMap('default');
-								setPosition({ x: 1000, y: 750 });
-								setActions([]);
-								setLocationText("You're Lost!");
-							}}
-							className='w-full mt-4 bg-red-500 hover:bg-red-700 text-white rounded-lg py-2'
-						>
-							Back to Main Map
-						</button>
-					)}
+				{currentMap !== 'default' && (
+					<button
+					onClick={() => {
+						setCurrentMap('default');
+						setPosition({ x: 1000, y: 750 });
+						setActions([]);
+						setLocationText("You're Lost!");
+					}}
+					className='w-full mt-4 bg-red-500 hover:bg-red-700 text-white rounded-lg py-2 text-xs sm:text-sm'
+					>
+					Back to Main Map
+					</button>
+				)}
 				</div>
 			</div>
 		</div>
