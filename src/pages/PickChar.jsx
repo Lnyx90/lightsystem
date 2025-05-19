@@ -25,6 +25,15 @@ function PickChar() {
 		'/images/characters/Wayang3.png',
 	];
 
+	useEffect(() => {
+		if (showNotification) {
+		const timer = setTimeout(() => {
+			setShowNotification(false);
+		}, 2000);
+		return () => clearTimeout(timer);
+		}
+  	}, [showNotification]);
+
 	const updateCharacter = (newIndex) => {
 		setIsFading(true);
 		setTimeout(() => {
@@ -106,7 +115,12 @@ function PickChar() {
 					Select Character
 				</button>
 
-				{showNotification && <Notification message={notificationMessage} />}
+				{showNotification && (
+				<div className="mt-6 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg transition-opacity duration-200 flex items-center">
+					<img src="/images/symbol/alert.png" className="w-8 h-8 mr-2" alt="alert" />
+					{notificationMessage}
+				</div>
+				)}
 			</div>
 
 			{showLevelSelection && (

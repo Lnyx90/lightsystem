@@ -20,7 +20,7 @@ function Game() {
 	const [money, setMoney] = useState(1000000);
 
 	//Position, Step & Location
-	const step = 15;
+	const step = 50;
 	const [position, setPosition] = useState({ x: 1000, y: 750 });
 	const [locationText, setLocationText] = useState("You're Lost!");
 
@@ -30,6 +30,7 @@ function Game() {
 	//Map
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const [currentMap, setCurrentMap] = useState('default');
+	const [isShaking, setIsShaking] = useState(false);
 
 	const mapWidth = 2000;
 	const mapHeight = 1500;
@@ -86,6 +87,11 @@ function Game() {
       // add more trees here
     ];
 
+	const triggerShake = () => {
+	setIsShaking(true);
+	setTimeout(() => setIsShaking(false), 300); // durasi shake
+	};
+
 		const handleKeyDown = (e) => {
 			setPosition((prev) => {
 				let { x, y } = prev;
@@ -93,10 +99,19 @@ function Game() {
 				else if (e.key === 'ArrowDown') y += step;
 				else if (e.key === 'ArrowLeft') x -= step;
 				else if (e.key === 'ArrowRight') x += step;
-        if (isColliding(x, y, trees, 30)) {
-          return prev; 
-        }
-				return { x, y };
+        const clampedX = clamp(x, 0, mapWidth);
+		const clampedY = clamp(y, 0, mapHeight);
+
+		if (clampedX !== x || clampedY !== y) {
+		triggerShake(); // getar jika mentok
+		return prev;
+		}
+
+		if (currentMap === 'default' && isColliding(clampedX, clampedY, trees, 30)) {
+		return prev;
+		}
+
+		return { x: clampedX, y: clampedY };
 			});
 		};
 
@@ -138,7 +153,15 @@ function Game() {
 			else if (direction === 'down') y += step;
 			else if (direction === 'left') x -= step;
 			else if (direction === 'right') x += step;
-			return { x, y };
+			const clampedX = clamp(x, 0, mapWidth);
+			const clampedY = clamp(y, 0, mapHeight);
+
+			if (clampedX !== x || clampedY !== y) {
+			triggerShake();
+			return prev;
+			}
+
+			return { x: clampedX, y: clampedY };
 		});
 	};
 
@@ -219,7 +242,13 @@ function Game() {
 				</div>
 			</div>
 
+		
 			<div className='fixed flex flex-wrap flex-row justify-center w-full mt-40 lg:mt-50'>
+				<div
+				className={`map-container relative w-[${viewportWidth}px] h-[${viewportHeight}px] overflow-hidden ${
+					isShaking ? 'shake' : ''
+				}`}
+				>
 				<div className=' w-[200px] h-[250px] md:w-[400px] md:h-[450px] lg:w-[700px] lg:h-[450px] rounded-lg overflow-hidden shadow-lg'>
 					<div
 						className=' transition-transform scale-y-132 scale-x-123 duration-300relative'
@@ -255,7 +284,7 @@ function Game() {
 								style={{
 									position: 'absolute',
 									bottom: '100%',
-									transform: 'translateX(-50%)',
+									transform: 'translate(-50%, -50%)',
 									left: '50%',
 								}}
 							>
@@ -274,6 +303,7 @@ function Game() {
 							/>
 						</div>
 					</div>
+				</div>
 				</div>
 
 				<div
