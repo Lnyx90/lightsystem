@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import stats from '../js/Stats';
 import '../css/Game.css';
+import useGameTime from './gametime';
+import { isColliding } from './colliding';
 
 function Game() {
 	//Player
 	const [player, setPlayer] = useState({ name: '', image: '' });
 
 	//Date
-	const [currentDate, setCurrentDate] = useState('');
+	const { gameTime, formattedDate, formattedTime, greeting } = useGameTime(10);
+
 
 	//Welcome Popup
 	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
@@ -65,13 +68,23 @@ function Game() {
 			image: storedImage || '/images/symbol/wayang1.png',
 		});
 
-		const date = new Date();
-		const formattedDate = date.toLocaleDateString('en-US', {
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric',
-		});
-		setCurrentDate(formattedDate);
+    //collision 
+    const trees = [
+      { x: 175, y: 315 },
+      { x: 265, y: 345 },
+      { x: 190, y: 390 },
+      { x: 355, y: 435 },
+      { x: 280, y: 480 },
+      { x: 295, y: 510 },
+      { x: 370, y: 585 },
+      { x: 520, y: 570 },
+      { x: 580, y: 405 },
+      { x: 655, y: 405 },
+      { x: 760, y: 375 },
+      { x: 835, y: 345 },
+      { x: 790, y: 420 },
+      // add more trees here
+    ];
 
 		const handleKeyDown = (e) => {
 			setPosition((prev) => {
@@ -80,6 +93,9 @@ function Game() {
 				else if (e.key === 'ArrowDown') y += step;
 				else if (e.key === 'ArrowLeft') x -= step;
 				else if (e.key === 'ArrowRight') x += step;
+        if (isColliding(x, y, trees, 30)) {
+          return prev; 
+        }
 				return { x, y };
 			});
 		};
@@ -126,6 +142,9 @@ function Game() {
 		});
 	};
 
+  
+  
+
 	return (
 		<div className=''>
 			<div className='flex items-center justify-center min-h-screen min-w-screen fixed z-100'>
@@ -166,7 +185,7 @@ function Game() {
 							alt='Calendar'
 						/>
 						<span className='text-[5px] md:text-[10px] lg:text-base'>
-							{currentDate}
+							{formattedDate}
 						</span>
 					</div>
 				</div>
@@ -245,7 +264,7 @@ function Game() {
 							<img
 								src={player.image}
 								alt='Player'
-								width='50'
+								width='35'
 								className={`rounded-full transition-all duration-700 ease-out transform ${
 									imageLoaded
 										? 'opacity-100 scale-100 translate-y-0'
@@ -275,7 +294,11 @@ function Game() {
 
 				<div className='flex items-center justify-center mb-4'>
 					<img src='/images/symbol/time.png' alt='day' className='w-6 h-6 sm:w-8 sm:h-8' />
+          <span>{formattedTime}</span>
 				</div>
+        <div className='flex items-center justify-center mb-4'>
+        <span className='text-[5px] md:text-[10px] lg:text-base'>{greeting}</span>
+        </div>
 
 				{actions.length > 0 ? (
 					actions.map((action, i) => (
