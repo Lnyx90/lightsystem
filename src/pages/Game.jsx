@@ -53,6 +53,8 @@ function Game() {
 		default: '/images/background/map.png',
 		lake: '/images/background/lake.jpg',
 		beach: '/images/background/beach.gif',
+		mountain: '/images/background/mountain.jpeg',
+		temple: '/images/background/temple.jpg',
 	};
 
 	//Mobile S
@@ -120,30 +122,58 @@ function Game() {
 	}, []);
 
 	useEffect(() => {
-		if (currentMap === 'default') {
-			if (
-				position.x > 1630 &&
-				position.x < 1885 &&
-				position.y > 1095 &&
-				position.y < 1125
-			) {
-				setCurrentMap('lake');
-				setPosition({ x: 100, y: 100 });
-				setActions([]);
-				setLocationText('Welcome to Lake Toba');
-			} else if (
-				position.x > 510 &&
-				position.x < 610 &&
-				position.y > 900 &&
-				position.y < 1170
-			) {
-				setCurrentMap('beach');
-				setPosition({ x: 100, y: 100 });
-				setActions([]);
-				setLocationText('Welcome to Kuta Beach');
-			}
+	if (currentMap === 'default') {
+		// Lake entry zone
+		if (
+			position.x > 1630 &&
+			position.x < 1885 &&
+			position.y > 1095 &&
+			position.y < 1125
+		) {
+			setCurrentMap('lake');
+			setPosition({ x: 100, y: 100 });
+			setActions([]);
+			setLocationText('Welcome to Lake Toba');
 		}
-	}, [position, currentMap]);
+		// Beach entry zone
+		else if (
+			position.x > 510 &&
+			position.x < 610 &&
+			position.y > 900 &&
+			position.y < 1170
+		) {
+			setCurrentMap('beach');
+			setPosition({ x: 100, y: 100 });
+			setActions([]);
+			setLocationText('Welcome to Kuta Beach');
+		}
+		//Mountain entry zone
+		else if (
+			position.x > 490 &&
+			position.x < 510 &&
+			position.y > 390 &&
+			position.y < 410
+		) {
+			setCurrentMap('mountain');
+			setPosition({ x: 100, y: 100 });
+			setActions([]);
+			setLocationText('Welcome to the Mountain');
+		}
+		// Temple entry zone
+		else if (
+			position.x > 1440 &&
+			position.x < 1460 &&
+			position.y > 340 &&
+			position.y < 360
+		) {
+			setCurrentMap('temple');
+			setPosition({ x: 100, y: 100 });
+			setActions([]);
+			setLocationText('Welcome to the Borobudur Temple');
+		}
+	}
+}, [position, currentMap]);
+
 
 	//Movement
 	const move = (direction) => {
@@ -167,7 +197,6 @@ function Game() {
 
   
   
-
 	return (
 		<div className=''>
 			<div className='flex items-center justify-center min-h-screen min-w-screen fixed z-100'>
@@ -262,6 +291,10 @@ function Game() {
 									? "url('/images/background/lake.jpg')"
 									: currentMap === 'beach'
 									? "url('/images/background/beach.gif')"
+									: currentMap === 'temple'
+									? "url('/images/background/temple.jpg')"
+									: currentMap === 'mountain'
+									? "url('/images/background/mountain.jpeg')"
 									: 'none',
 							backgroundSize: 'cover',
 							backgroundRepeat: 'no-repeat',
