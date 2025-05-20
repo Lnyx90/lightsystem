@@ -3,6 +3,9 @@ import stats from '../js/Stats';
 import '../css/Game.css';
 import useGameTime from './gametime';
 import { isColliding } from './colliding';
+import GameTitleBar from '../components/GameTitleBar';
+import GameStatusBar from '../components/GameStatusBar';
+import GameWelcomePopup from '../components/GameWelcomePopup';
 
 function Game() {
 	//Player
@@ -10,7 +13,6 @@ function Game() {
 
 	//Date
 	const { gameTime, formattedDate, formattedTime, greeting } = useGameTime(10);
-
 
 	//Welcome Popup
 	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
@@ -41,12 +43,12 @@ function Game() {
 	const offsetX = clamp(
 		-position.x + viewportWidth / 2,
 		-mapWidth + viewportWidth,
-		0
+		200
 	);
 	const offsetY = clamp(
 		-position.y + viewportHeight / 2,
 		-mapHeight + viewportHeight,
-		0
+		200
 	);
 
 	const mapImages = {
@@ -89,7 +91,7 @@ function Game() {
 
 	const triggerShake = () => {
 	setIsShaking(true);
-	setTimeout(() => setIsShaking(false), 300); // durasi shake
+	setTimeout(() => setIsShaking(false), 300); 
 	};
 
 		const handleKeyDown = (e) => {
@@ -103,7 +105,7 @@ function Game() {
 		const clampedY = clamp(y, 0, mapHeight);
 
 		if (clampedX !== x || clampedY !== y) {
-		triggerShake(); // getar jika mentok
+		triggerShake();
 		return prev;
 		}
 
@@ -170,78 +172,14 @@ function Game() {
 
 	return (
 		<div className=''>
-			<div className='flex items-center justify-center min-h-screen min-w-screen fixed z-100'>
-				{showWelcomePopup && (
-					<div>
-						<div className='bg-white p-6 rounded-lg shadow-lg text-center w-full max-w-xs relative'>
-							<h2>Welcome, {player.name}!</h2>
-							<p>You have chosen:</p>
-							<img
-								src={player.image}
-								alt='Character'
-								className='max-w-24 mx-auto'
-							/>
-							<p>Time for an Epic Journey!</p>
-							<button
-								className='bg-blue-500 text-white px-4 rounded-lg hover:bg-blue-700'
-								onClick={closePopUp}
-							>
-								Play
-							</button>
-						</div>
-					</div>
-				)}
-			</div>
+			<GameWelcomePopup
+				player={player}
+				showWelcomePopup={showWelcomePopup}
+				closePopUp={closePopUp}
+				/>
 
-			<div className='fixed mt-4 flex justify-center w-full px-4 pt-4 '>
-				<div className='flex flex-wrap items-center justify-center min-w-24 min-h-10 gap-4 sm:gap-8 bg-blue-900 text-white rounded-lg px-2'>
-					<span className='text-[5px] md:text-[10px] lg:text-base'>
-						Archipelago Adventure
-					</span>
-					<button className='text-[5px] md:text-[10px] lg:text-base'>
-						Level <span>1</span>
-					</button>
-					<div className='flex items-center'>
-						<img
-							src='/images/symbol/calendar.png'
-							className='w-5 h-5 sm:w-7 sm:h-7 lg:w-10'
-							alt='Calendar'
-						/>
-						<span className='text-[5px] md:text-[10px] lg:text-base'>
-							{formattedDate}
-						</span>
-					</div>
-				</div>
-			</div>
-
-			<div className='fixed mt-20 flex justify-center w-full px-4'>
-				<div className='flex flex-wrap items-center justify-center p-1 rounded-lg gap-5'>
-					{stats.map(({ icon, value, color }, index) => (
-						<div
-							key={index}
-							className='flex items-center gap-2 rounded-lg bg-white border-1 border-black p-1'
-						>
-							<img
-								src={`/images/symbol/${icon}.png`}
-								alt={icon}
-								className='w-2 h-2 sm:w-6 sm:h-6 lg:w-8 lg:h-8 mt-0.5'
-							/>
-							<div className='flex-1 relative'>
-								<div className='h-1 md:h-2 lg:h-3 w-10 md:w-20 lg:w-30 bg-gray-300 rounded-full overflow-hidden'>
-									<div
-										className={`h-1 md:h-2 lg:h-3 lg:w-50 ${color} transition-all duration-300`}
-										style={{ width: `${value}%` }}
-									/>
-								</div>
-							</div>
-							<span className='text-[3px] md:text-[6px] lg:text-base mt-1'>
-								{value}%
-							</span>
-						</div>
-					))}
-				</div>
-			</div>
-
+			<GameTitleBar formattedDate={formattedDate} />
+			<GameStatusBar stats={stats} />
 		
 			<div className='fixed flex flex-wrap flex-row justify-center w-full mt-40 lg:mt-50'>
 				<div
