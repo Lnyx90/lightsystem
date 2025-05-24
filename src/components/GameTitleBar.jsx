@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import IdentityCard from "./IdentityCard";
 
+
 function GameTitleBar({ formattedDate }) {
   const [showCard, setShowCard] = useState(false);
+  
+  // Add a state for the character image or get it from props/context
+  const [characterImage, setCharacterImage] = useState("/images/characters/default-avatar.jpg"); // Default image path
 
   return (
     <>
@@ -29,7 +33,12 @@ function GameTitleBar({ formattedDate }) {
           </div>
         </div>
       </div>
-      {showCard && <IdentityCard onClose={() => setShowCard(false)} />}
+      {showCard && (
+        <IdentityCard 
+          onClose={() => setShowCard(false)} 
+          characterImage={characterImage} 
+        />
+      )}
     </>
   );
 }

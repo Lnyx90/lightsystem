@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function IdentityCard({ onClose }) {
+function IdentityCard({ onClose, characterImage, userName }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-transparent flex justify-center items-center z-50">
       <div
-        className="relative w-80 h-60"
+        className="relative w-128 h-90"
         style={{ perspective: "1000px" }}
         onClick={() => setFlipped(!flipped)}
       >
@@ -33,37 +33,87 @@ function IdentityCard({ onClose }) {
                 ×
               </button>
             )}
-            <h2 className="text-xl font-bold mb-4">Identity Card</h2>
-            <p><strong>Name:</strong> Player One</p>
-            <p><strong>Level:</strong> 1</p>
-            <p><strong>Status:</strong> Healthy</p>
-          </div>
+             <h2 className="text-xl font-bold mb-4 text-center">Id Card</h2>
+  
+  {/* Profile Picture (centered above the info) */}
+  <div className="mb-4">
+    <img 
+      src={characterImage} 
+      alt="Character Profile" 
+      className="w-20 h-20 rounded-full object-cover border-2 border-gray-300"
+    />
+  </div>
+  
+  {/* Player Info (centered) */}
+  <div className="text-center">
+    <p className="mb-2 mt-20"><strong>Name:</strong> Player One</p>
+    <p className="mb-2 "><strong>Level:</strong> 1</p>
+    <p className="mb-2 "><strong>Exp:</strong> 0/100</p>
+  </div>
+</div>
 
           {/* Back Side */}
           <div
-            className="absolute w-full h-full bg-white text-black p-6 rounded-lg shadow-lg"
-            style={{
-              backfaceVisibility: "hidden",
-              transform: "rotateY(180deg)",
-            }}
-          >
-            {flipped && (
-              <button
-                className="absolute top-2 right-2 text-lg font-bold z-10"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-              >
-                ×
-              </button>
-            )}
-            <h2 className="text-xl font-bold mb-4">Achievements</h2>
-            <ul className="list-disc list-inside">
-              <li>First Quest Completed</li>
-              <li>Island Explorer</li>
-              <li>Master of Puzzles</li>
-            </ul>
+  className="absolute w-full h-full bg-white text-black p-6 rounded-lg shadow-lg overflow-y-auto"
+  style={{
+    backfaceVisibility: "hidden",
+    transform: "rotateY(180deg)",
+  }}
+>
+  <button
+    className="absolute top-2 right-2 text-lg font-bold z-10"
+    onClick={(e) => {
+      e.stopPropagation();
+      onClose();
+    }}
+  >
+    ×
+  </button>
+  <h2 className="text-xl font-bold mb-4 text-center">Achievements</h2>
+  
+  <div className="grid grid-cols-2 gap-3">
+    {/* Photography Achievement */}
+    <div className="rounded p-8 text-center">
+      <img 
+        src="/images/symbol/capture.png" 
+        alt="Photography Achievement" 
+        className="w-12 h-12 mx-auto mb-2 object-cover rounded"
+      />
+      <h3 className="font-semibold">Photography</h3>
+    </div>
+    
+    {/* Map Explorer Achievement */}
+    <div className="rounded p-4 text-center">
+      <img 
+        src="/images/symbol/explorer.png" 
+        alt="Map Explorer Achievement" 
+        className="w-12 h-12 mx-auto mb-2 object-cover rounded"
+      />
+      <h3 className="font-semibold">Map Explorer</h3>
+    </div>
+    
+    {/* Treasure Collector Achievement */}
+    <div className="rounded p-4 text-center">
+      <img 
+        src="/images/symbol/treasure.png" 
+        alt="Treasure Collector Achievement" 
+        className="w-12 h-12 mx-auto mb-2 object-cover rounded"
+      />
+      <h3 className="font-semibold">Collector</h3>
+    </div>
+    
+    {/* Composition Achievement */}
+    <div className="rounded p-4 text-center">
+      <img 
+        src="/images/symbol/composting.png" 
+        alt="Composition Achievement" 
+        className="w-12 h-12 mx-auto mb-2 object-cover rounded"
+      />
+      <h3 className="font-semibold">Composition</h3>
+    </div>
+  </div>
+
+            
           </div>
         </div>
       </div>
