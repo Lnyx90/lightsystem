@@ -35,6 +35,7 @@ function GameTitleBar({ formattedDate }) {
       </div>
       {showCard && (
         <IdentityCard 
+          userName={localStorage.getItem('playerName')}
           onClose={() => setShowCard(false)} 
           characterImage={characterImage} 
         />

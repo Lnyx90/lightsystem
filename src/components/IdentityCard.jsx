@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 function IdentityCard({ onClose, characterImage, userName }) {
   const [flipped, setFlipped] = useState(false);
+  const selectedCharacterImage = localStorage.getItem('PlayerImage');
+
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-transparent flex justify-center items-center z-50">
@@ -18,8 +20,8 @@ function IdentityCard({ onClose, characterImage, userName }) {
           }}
         >
           {/* Front Side */}
-          <div
-            className="absolute w-full h-full bg-white text-black p-6 rounded-lg shadow-lg"
+           <div
+            className="absolute w-full h-full bg-white rounded-lg shadow-lg flex items-center"
             style={{ backfaceVisibility: "hidden" }}
           >
             {!flipped && (
@@ -33,24 +35,30 @@ function IdentityCard({ onClose, characterImage, userName }) {
                 ×
               </button>
             )}
-             <h2 className="text-xl font-bold mb-4 text-center">Id Card</h2>
-  
-  {/* Profile Picture (centered above the info) */}
-  <div className="mb-4">
-    <img 
-      src={characterImage} 
-      alt="Character Profile" 
-      className="w-20 h-20 rounded-full object-cover border-2 border-gray-300"
-    />
-  </div>
-  
-  {/* Player Info (centered) */}
-  <div className="text-center">
-    <p className="mb-2 mt-20"><strong>Name:</strong> Player One</p>
-    <p className="mb-2 "><strong>Level:</strong> 1</p>
-    <p className="mb-2 "><strong>Exp:</strong> 0/100</p>
+            
+            {/* Character Image on Left */}
+            <div className="w-full h-full flex flex-col">
+  <h2 className="text-2xl text-center font-bold mb-0 mt-8">ID Card</h2>
+  <div className="flex flex-1">
+    <div className="w-1/3 h-full flex items-center justify-center p-8 mt-[-1rem] ml-4">
+      <img
+        src={selectedCharacterImage}
+        alt="Character Profile"
+        className="h-full w-auto object-contain"
+      />
+    </div>
+    {/* ID Card Info on Right - Beside the character image */}
+    <div className="w-3/5 h-full justify-center p-12 mt-10 -ml-1">
+      <div className="space-y-3">
+        <p className="text-lg"><strong>Name:</strong> {userName}</p>
+        <p className="text-lg"><strong>Level:</strong> 1</p>
+        <p className="text-lg"><strong>Exp:</strong> 0/100</p>
+      </div>
+    </div>
   </div>
 </div>
+          </div>
+
 
           {/* Back Side */}
           <div
