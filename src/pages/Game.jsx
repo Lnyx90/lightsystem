@@ -96,7 +96,7 @@ function Game() {
 	setTimeout(() => setIsShaking(false), 300); 
 	};
 
-		const handleKeyDown = (e) => {
+	const handleKeyDown = (e) => {
 			setPosition((prev) => {
 				let { x, y } = prev;
 				if (e.key === 'ArrowUp') y -= step;
@@ -127,10 +127,8 @@ function Game() {
 	if (currentMap === 'default') {
 		// Lake entry zone
 		if (
-			position.x > 1630 &&
-			position.x < 1885 &&
-			position.y > 1095 &&
-			position.y < 1125
+			position.x > 1630 && position.x < 1885 &&
+			position.y > 1095 && position.y < 1125
 		) {
 			setCurrentMap('lake');
 			setPosition({ x: 100, y: 100 });
@@ -139,22 +137,18 @@ function Game() {
 		}
 		// Beach entry zone
 		else if (
-			position.x > 510 &&
-			position.x < 610 &&
-			position.y > 900 &&
-			position.y < 1170
+			position.x > 510 && position.x < 610 &&
+			position.y > 900 && position.y < 1170
 		) {
 			setCurrentMap('beach');
 			setPosition({ x: 100, y: 100 });
 			setActions([]);
 			setLocationText('Welcome to Kuta Beach');
 		}
-		//Mountain entry zone
+		// Mountain entry zone
 		else if (
-			position.x > 490 &&
-			position.x < 510 &&
-			position.y > 390 &&
-			position.y < 410
+			position.x > 490 && position.x < 510 &&
+			position.y > 390 && position.y < 410
 		) {
 			setCurrentMap('mountain');
 			setPosition({ x: 100, y: 100 });
@@ -163,15 +157,48 @@ function Game() {
 		}
 		// Temple entry zone
 		else if (
-			position.x > 1440 &&
-			position.x < 1460 &&
-			position.y > 340 &&
-			position.y < 360
+			position.x > 1440 && position.x < 1460 &&
+			position.y > 340 && position.y < 360
 		) {
 			setCurrentMap('temple');
 			setPosition({ x: 100, y: 100 });
 			setActions([]);
 			setLocationText('Welcome to the Borobudur Temple');
+		}
+	} 
+	else if (currentMap === 'lake') {
+		if (
+			position.x > 999 && position.x < 1049 &&
+			position.y > 199 && position.y < 249
+		) {
+			setCurrentMap('home');
+			setPosition({ x: 100, y: 100 });
+			setActions([]);
+			setLocationText('Welcome Home');
+		}
+
+		else if (
+			position.x > 299 && position.x < 351 &&
+			position.y > 99 && position.y < 149
+		) {
+			setActions(['Enter Bites and Tickets Shop']);
+			setLocationText('You are near a shop');
+		}
+		else if (
+			position.x > 1249 && position.x < 1301 &&
+			position.y > 599 && position.y < 610
+		) {
+			setActions(['Enter Dockside Shop']);
+			setLocationText('You are near a shop');
+		}else if (
+			position.x > 1049 && position.x < 1301 &&
+			position.y > 849 && position.y <  901
+		) {
+			setActions(['sightseeing',' fishing', 'take pictures']);
+			setLocationText('You are near a shop');
+		}
+		else {
+		 setActions([]);
 		}
 	}
 }, [position, currentMap]);
