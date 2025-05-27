@@ -228,12 +228,48 @@ function Game() {
 		setActions([]);
 		setLocationText('You are at home');
 	}
-	
 }
+ else if (currentMap === 'mountain') {
+		if (
+		Math.sqrt((position.x - 1160) ** 2 + (position.y - 50) ** 2) < 80
+		) {
+		setActions([
+			'Enjoy the View',
+			'Capture the Moment',
+			'Rest & Eat Snacks',
+			'Hiking Journaling'
+		]);
+		setLocationText('You are at the Mountain Peak');
+		}
 
- 
+		else if (
+		Math.sqrt((position.x - 1110) ** 2 + (position.y - 800) ** 2) < 120
+		) {
+		setActions([
+			'Hiking',
+			'Observe Nature',
+			'Collect Firewood',
+			'Gather Spring Water'
+		]);
+		setLocationText('You are on the Mountain Slope');
+		}
 
-
+		else if (
+		Math.sqrt((position.x - 1740) ** 2 + (position.y - 1125) ** 2) < 80
+		) {
+		setActions([
+			'Set Up Tent',
+			'Cook Food',
+			'Build a Campfire',
+			'Talk to Fellow Campers'
+		]);
+		setLocationText('You are at the Campground');
+		}
+		else {
+		setActions([]);
+		setLocationText('');
+		}
+	}
 }, [position, currentMap]);
 
 
