@@ -148,8 +148,8 @@ function Game() {
 		}
 		// Mountain entry zone
 		else if (
-			position.x > 490 && position.x < 510 &&
-			position.y > 390 && position.y < 410
+			position.x > 100 && position.x < 800 &&
+			position.y > 0 && position.y < 400
 		) {
 			setCurrentMap('mountain');
 			setPosition({ x: 100, y: 100 });
