@@ -57,6 +57,7 @@ function Game() {
 		beach: '/images/background/beach.gif',
 		mountain: '/images/background/mountain.jpeg',
 		temple: '/images/background/temple.jpg',
+		home: '/images/background/home.jpeg',
 	};
 
 	//Mobile S
@@ -176,6 +177,7 @@ function Game() {
 			setActions([]);
 			setLocationText('Welcome Home');
 		}
+		
 
 		else if (
 			position.x > 299 && position.x < 351 &&
@@ -201,6 +203,37 @@ function Game() {
 		 setActions([]);
 		}
 	}
+
+
+	if (currentMap === 'home') {
+	if (
+		position.x > 1850 && position.x < 1950 &&
+		position.y > 250 && position.y < 350
+	) {
+		setActions(['Sleep']);
+		setLocationText('This looks like a good place to rest');
+	} else if (
+		position.x > 1050 && position.x < 1150 &&
+		position.y > 300 && position.y < 400
+	) {
+		setActions(['Eat']);
+		setLocationText('You are near the kitchen');
+	} else if (
+		position.x > 1650 && position.x < 1750 &&
+		position.y > 1100 && position.y < 1200
+	) {
+		setActions(['Bath']);
+		setLocationText('Time to freshen up');
+	} else {
+		setActions([]);
+		setLocationText('You are at home');
+	}
+	
+}
+
+ 
+
+
 }, [position, currentMap]);
 
 
@@ -260,6 +293,8 @@ function Game() {
 									? "url('/images/background/temple.jpg')"
 									: currentMap === 'mountain'
 									? "url('/images/background/mountain.jpeg')"
+									: currentMap === 'home'
+									? "url('/images/background/home.jpeg')"
 									: 'none',
 							backgroundSize: 'cover',
 							backgroundRepeat: 'no-repeat',
@@ -345,6 +380,20 @@ function Game() {
 					No actions available here.
 					</div>
 				)}
+
+				{currentMap === 'home' && (
+						<button
+							onClick={() => {
+							setCurrentMap('lake');
+							setPosition({ x: 1050, y: 200 }); // Adjust coordinates as needed
+							setActions([]);
+							setLocationText('Welcome to Lake Toba');
+							}}
+							className='w-full mt-2 bg-green-500 hover:bg-green-700 text-white rounded-lg py-2 text-xs sm:text-sm'
+						>
+							Back to Lake Map
+						</button>
+						)}
 
 				{currentMap !== 'default' && (
 					<button
