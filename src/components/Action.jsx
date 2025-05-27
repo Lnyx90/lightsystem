@@ -1,4 +1,3 @@
-
 export const actionZones = {
   lake: [
     {
