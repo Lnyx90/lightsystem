@@ -215,71 +215,38 @@ function Game() {
 
 
 	if (currentMap === 'home') {
-
-	if (
-		position.x > 1850 && position.x < 1950 &&
-		position.y > 250 && position.y < 350
-	) {
-		setActions(['Sleep']);
-		setLocationText('This looks like a good place to rest');
-	} else if (
-		position.x > 1050 && position.x < 1150 &&
-		position.y > 300 && position.y < 400
-	) {
-		setActions(['Eat']);
-		setLocationText('You are near the kitchen');
-	} else if (
-		position.x > 1650 && position.x < 1750 &&
-		position.y > 1100 && position.y < 1200
-	) {
-		setActions(['Bath']);
-		setLocationText('Time to freshen up');
-	} else {
-		setActions([]);
-		setLocationText('You are at home');
-	}
+  if (
+    position.x > 1850 && position.x < 1950 &&
+    position.y > 250 && position.y < 350
+  ) {
+    setActions([{
+      name: 'Sleep',
+      action: () => showActionPopup('You had a good rest! Energy restored.')
+    }]);
+    setLocationText('This looks like a good place to rest');
+  } else if (
+    position.x > 1050 && position.x < 1150 &&
+    position.y > 300 && position.y < 400
+  ) {
+    setActions([{
+      name: 'Eat',
+      action: () => showActionPopup('Delicious meal! Hunger satisfied.')
+    }]);
+    setLocationText('You are near the kitchen');
+  } else if (
+    position.x > 1650 && position.x < 1750 &&
+    position.y > 1100 && position.y < 1200
+  ) {
+    setActions([{
+      name: 'Bath',
+      action: () => showActionPopup('Refreshing bath! Hygiene improved.')
+    }]);
+    setLocationText('Time to freshen up');
+  } else {
+    setActions([]);
+    setLocationText('You are at home');
+  }
 }
- else if (currentMap === 'mountain') {
-		if (
-		Math.sqrt((position.x - 1160) ** 2 + (position.y - 50) ** 2) < 80
-		) {
-		setActions([
-			'Enjoy the View',
-			'Capture the Moment',
-			'Rest & Eat Snacks',
-			'Hiking Journaling'
-		]);
-		setLocationText('You are at the Mountain Peak');
-		}
-
-		else if (
-		Math.sqrt((position.x - 1110) ** 2 + (position.y - 800) ** 2) < 120
-		) {
-		setActions([
-			'Hiking',
-			'Observe Nature',
-			'Collect Firewood',
-			'Gather Spring Water'
-		]);
-		setLocationText('You are on the Mountain Slope');
-		}
-
-		else if (
-		Math.sqrt((position.x - 1740) ** 2 + (position.y - 1125) ** 2) < 80
-		) {
-		setActions([
-			'Set Up Tent',
-			'Cook Food',
-			'Build a Campfire',
-			'Talk to Fellow Campers'
-		]);
-		setLocationText('You are at the Campground');
-		}
-		else {
-		setActions([]);
-		setLocationText('');
-		}
-	}
 }, [position, currentMap]);
 
 
