@@ -12,3 +12,14 @@
 .shake {
   animation: shake 0.3s;
 }
+
+@keyframes fade {
+  0% { opacity: 0; transform: translate(-50%, 20px); }
+  20% { opacity: 1; transform: translate(-50%, 0); }
+  80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
+.animate-fade {
+  animation: fade 3s ease-in-out forwards;
+}

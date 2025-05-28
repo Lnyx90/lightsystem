@@ -29,6 +29,13 @@ function Game() {
 	//Actions
 	const [actions, setActions] = useState([]);
 
+	// Add this with your other useState hooks
+	const [actionPopup, setActionPopup] = useState({ show: false, message: '' });
+	const showActionPopup = (message) => {
+  setActionPopup({ show: true, message });
+  setTimeout(() => setActionPopup({ show: false, message: '' }), 3000);
+};
+
 	//Map
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const [currentMap, setCurrentMap] = useState('default');
@@ -62,6 +69,8 @@ function Game() {
 
 	//Mobile S
 	const isMobile = window.innerWidth < 768;
+
+
 
 	//UseEffects
 	useEffect(() => {
@@ -148,8 +157,8 @@ function Game() {
 		}
 		// Mountain entry zone
 		else if (
-			position.x > 490 && position.x < 510 &&
-			position.y > 390 && position.y < 410
+			position.x > 100 && position.x < 800 &&
+			position.y > 0 && position.y < 400
 		) {
 			setCurrentMap('mountain');
 			setPosition({ x: 100, y: 100 });
@@ -206,34 +215,38 @@ function Game() {
 
 
 	if (currentMap === 'home') {
-	if (
-		position.x > 1850 && position.x < 1950 &&
-		position.y > 250 && position.y < 350
-	) {
-		setActions(['Sleep']);
-		setLocationText('This looks like a good place to rest');
-	} else if (
-		position.x > 1050 && position.x < 1150 &&
-		position.y > 300 && position.y < 400
-	) {
-		setActions(['Eat']);
-		setLocationText('You are near the kitchen');
-	} else if (
-		position.x > 1650 && position.x < 1750 &&
-		position.y > 1100 && position.y < 1200
-	) {
-		setActions(['Bath']);
-		setLocationText('Time to freshen up');
-	} else {
-		setActions([]);
-		setLocationText('You are at home');
-	}
-	
+  if (
+    position.x > 1850 && position.x < 1950 &&
+    position.y > 250 && position.y < 350
+  ) {
+    setActions([{
+      name: 'Sleep',
+      action: () => showActionPopup('You had a good rest! Energy restored.')
+    }]);
+    setLocationText('This looks like a good place to rest');
+  } else if (
+    position.x > 1050 && position.x < 1150 &&
+    position.y > 300 && position.y < 400
+  ) {
+    setActions([{
+      name: 'Eat',
+      action: () => showActionPopup('Delicious meal! Hunger satisfied.')
+    }]);
+    setLocationText('You are near the kitchen');
+  } else if (
+    position.x > 1650 && position.x < 1750 &&
+    position.y > 1100 && position.y < 1200
+  ) {
+    setActions([{
+      name: 'Bath',
+      action: () => showActionPopup('Refreshing bath! Hygiene improved.')
+    }]);
+    setLocationText('Time to freshen up');
+  } else {
+    setActions([]);
+    setLocationText('You are at home');
+  }
 }
-
- 
-
-
 }, [position, currentMap]);
 
 
@@ -266,6 +279,12 @@ function Game() {
 				showWelcomePopup={showWelcomePopup}
 				closePopUp={closePopUp}
 				/>
+				{/* Action Popup */}
+				{actionPopup.show && (
+				<div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-2 rounded-lg shadow-lg z-50 animate-fade">
+					{actionPopup.message}
+				</div>
+				)}
 
 			<GameTitleBar formattedDate={formattedDate} />
 			<GameStatusBar stats={stats} />
@@ -364,22 +383,22 @@ function Game() {
         </div>
 
 				{actions.length > 0 ? (
-					actions.map((action, i) => (
-					<button
-						key={i}
-						className='w-full bg-blue-500 
-								text-[10px] sm:text-xs md:text-sm 
-								text-white p-2 mt-2 rounded-lg hover:bg-blue-600'
-						onClick={() => console.log(`Action: ${action}`)}
-					>
-						{action}
-					</button>
-					))
-				) : (
-					<div className='text-center text-xs text-gray-600 mt-2'>
-					No actions available here.
-					</div>
-				)}
+  actions.map((action, i) => (
+    <button
+      key={i}
+      className='w-full bg-blue-500 
+          text-[10px] sm:text-xs md:text-sm 
+          text-white p-2 mt-2 rounded-lg hover:bg-blue-600'
+      onClick={action.action || (() => console.log(`Action: ${action.name || action}`))}
+    >
+      {action.name || action}
+    </button>
+  ))
+) : (
+  <div className='text-center text-xs text-gray-600 mt-2'>
+    No actions available here.
+  </div>
+)}
 
 				{currentMap === 'home' && (
 						<button
